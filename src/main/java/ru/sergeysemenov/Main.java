@@ -12,15 +12,16 @@ import java.time.LocalTime;
 public class Main {
     public static void main(String[] args) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        TicketResponse tickets = mapper.readValue(new File(args[0]),TicketResponse.class);
+        TicketResponse tickets = mapper.readValue(new File("tickets.json"),TicketResponse.class);
         long flightTime = getTotalFlightTime(tickets);
         tickets.getTickets().sort(Ticket::compareTo);
         calculateAvgTimeFlight(tickets, flightTime);
         findPercentile(tickets);
     }
+
     private static void findPercentile(TicketResponse tickets) {
         BigDecimal percentile = new BigDecimal(0.9d);
-        int idx = percentile.multiply(new BigDecimal(tickets.getTickets().size())).setScale(0,RoundingMode.HALF_EVEN).intValue();
+        int idx = percentile.multiply(new BigDecimal(tickets.getTickets().size()-1)).setScale(0,RoundingMode.HALF_EVEN).intValue();;
         long value = tickets.getTickets().get(idx).flightTime;
         long hours = value/3600;
         long minutes = (value-hours*3600)/60;
