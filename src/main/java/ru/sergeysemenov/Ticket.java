@@ -34,6 +34,6 @@ public class Ticket implements Comparable<Ticket>{
 
     @Override
     public int compareTo(Ticket o) {
-        return Long.compare(o.flightTime,flightTime);
+        return Long.compare(flightTime,o.flightTime);
     }
 }

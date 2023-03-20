@@ -17,7 +17,6 @@ public class Main {
         tickets.getTickets().sort(Ticket::compareTo);
         calculateAvgTimeFlight(tickets, flightTime);
         findPercentile(tickets);
-        tickets.getTickets().forEach(ticket -> System.out.print(ticket.flightTime+ " "));
     }
 
     private static void findPercentile(TicketResponse tickets) {
@@ -31,7 +30,7 @@ public class Main {
 
     private static void calculateAvgTimeFlight(TicketResponse tickets, long flightTime) {
         long avgTime = flightTime / tickets.getTickets().size();
-        long hours = avgTime/3600;
+        long hours = avgTime/3600;;
         long minutes = (avgTime-hours*3600)/60;
         System.out.println("среднее время полета: "+hours+"ч:"+minutes+"м");
     }
