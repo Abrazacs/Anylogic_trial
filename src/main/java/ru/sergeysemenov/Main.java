@@ -12,11 +12,12 @@ import java.time.LocalTime;
 public class Main {
     public static void main(String[] args) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        TicketResponse tickets = mapper.readValue(new File("tickets.json"),TicketResponse.class);
+        TicketResponse tickets = mapper.readValue(new File(args[0]),TicketResponse.class);
         long flightTime = getTotalFlightTime(tickets);
         tickets.getTickets().sort(Ticket::compareTo);
         calculateAvgTimeFlight(tickets, flightTime);
         findPercentile(tickets);
+        tickets.getTickets().forEach(ticket -> System.out.print(ticket.flightTime+ " "));
     }
 
     private static void findPercentile(TicketResponse tickets) {
